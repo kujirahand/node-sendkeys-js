@@ -17,6 +17,10 @@ sendkeys.send('{f5}')
 
 ## api
 
+### sendKeys(keys)
+
+send keys like VB SendKeys
+
 ### send(keys, metaKeys)
 
 send raw key data with metaKeys(Array).
