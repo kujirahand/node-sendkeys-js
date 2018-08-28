@@ -1,9 +1,10 @@
 const sendkeys = require('../index.js')
 if (process.platform === 'darwin') {
-  sendkeys.activate('CotEditor')
+  sendkeys.sendKeys('ls{enter}')
   /*
+  sendkeys.activate('CotEditor')
   sendkeys.send('"a"',['command'])
-  sendkeys.send('delete')
+  sendkeys.send('T')
 
   sendkeys.send('"This"')
   sendkeys.send('space')
@@ -11,12 +12,14 @@ if (process.platform === 'darwin') {
   sendkeys.send('space')
   sendkeys.send('"Mike."')
   */
+  /*
   sendkeys.sendKeys('+^q')
   sendkeys.sleep(1)
   sendkeys.sendKeys('Calculator.app{enter}')
   sendkeys.sleep(1)
   sendkeys.activate('Calculator')
   sendkeys.sendKeys('c1{+}2*3{enter}')
+  */
 }
 if (process.platform == 'win32') {
   sendkeys.run('calc')

@@ -27,7 +27,7 @@ function cmd2(args2) {
     let args = args2[i]
     const app = args[0]
     args = args.slice(1)
-    console.log(app, args)
+    // console.log(app, args)
     const {stderr, status} = spawnSync(app, args)
     if (status !== 0) {
       if (process.platform === 'linux') {
