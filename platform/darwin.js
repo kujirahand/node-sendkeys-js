@@ -1,12 +1,13 @@
+// memo) https://apple.stackexchange.com/questions/36943/how-do-i-automate-a-key-press-in-applescript
 // memo) http://sengyoaruji.iinaa.net/20160603a.html
 // memo) https://eastmanreference.com/complete-list-of-applescript-key-codes
 //
 const spkeys = {
-  'return': 'keystroke return',
-  'enter': 'keystroke return',
-  'tab': 'keystroke tab',
-  'home': 'key code 1',
-  'space': 'key code 49',
+  'return': 'keystroke Return',
+  'enter': 'keystroke Return',
+  'tab': 'keystroke Tab',
+  'home': 'keystroke Home',
+  'space': 'keystroke Space',
   'spc': 'key code 49',
   'delete': 'key code 51',
   'bs': 'key code 51',
@@ -52,9 +53,34 @@ module.exports.gen = function (key, metaKeys) {
 }
 
 // ative command
-module.exports.activate= function (title) {
+module.exports.activate = function (title) {
   const cmd = ['osascript', '-e']
   cmd.push(`tell application "${title}" to activate`)
+  return cmd
+}
+module.exports.run = function (path) {
+  return ['open', path]
+}
+module.exports.sleep = function (v) {
+  return ['sleep', v]
+}
+
+module.exports.getActive = function () {
+  const cmd = ['osascript', '-e']
+  cmd.push(`
+global frontApp, frontAppName, windowTitle
+set windowTitle to ""
+tell application "System Events"
+	set frontApp to first application process whose frontmost is true
+	set frontAppName to name of frontApp
+	tell process frontAppName
+		tell (1st window whose value of attribute "AXMain" is true)
+			set windowTitle to value of attribute "AXTitle"
+		end tell
+	end tell
+end tell
+return {windowTitle, frontAppName}
+`)
   return cmd
 }
 

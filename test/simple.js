@@ -11,6 +11,9 @@ if (process.platform === 'darwin') {
   sendkeys.send('"Mike."')
 }
 if (process.platform == 'win32') {
-  sendkeys.activate('無題 - メモ帳')
+  sendkeys.run('calc')
+  sendkeys.sleep(2)
+  sendkeys.activate('Calcurator')
   sendkeys.send('1{+}2{+}3{enter}')
 }
+

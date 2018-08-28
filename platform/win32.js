@@ -9,7 +9,7 @@ $wshell.SendKeys("${keys}");
 }
 
 // ative command
-module.exports.activate= function (title) {
+module.exports.activate = function (title) {
   const cmd = ['powershell', '-command']
   cmd.push(`
 $wshell = New-Object -ComObject wscript.shell;
@@ -17,4 +17,19 @@ $wshell.AppActivate("${title}");
   `)
   return cmd
 }
+
+module.exports.run = function (path) {
+  const cmd = ['powershell', '-command']
+  cmd.push(`
+$wshell = New-Object -ComObject wscript.shell;
+$wshell.run("${path}");
+  `)
+  return cmd
+}
+module.exports.sleep = function (v) {
+  const cmd = ['powershell', '-command']
+  cmd.push(`Start-Sleep -s ${v}`)
+  return cmd
+}
+
 

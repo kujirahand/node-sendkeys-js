@@ -10,3 +10,8 @@ module.exports.activate= function (title) {
   return cmd
 }
 
+module.exports.getActive = function () {
+  const cmd = ['xdotool', 'wgetactivewindow']
+  return cmd
+}
+

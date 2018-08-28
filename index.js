@@ -18,8 +18,9 @@ function cmd(args) {
   const app = args[0]
   args = args.slice(1)
   console.log(app, args)
-  const {stderr, status} = spawnSync(app, args)
+  const {stdout, stderr, status} = spawnSync(app, args)
   if (status !== 0) throw stderr
+  return stdout
 }
 
 function send(keys, metaKeys) {
@@ -28,10 +29,18 @@ function send(keys, metaKeys) {
 function activate(title) {
   cmd(config.activate(title))
 }
+function run(path) {
+  return cmd(config.run(path))
+}
+function sleep(v) {
+  cmd(config.sleep(v))
+}
 
 module.exports = {
   'send': send,
-  'activate': activate
+  'activate': activate,
+  'run': run,
+  'sleep': sleep
 }
 
 

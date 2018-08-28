@@ -3,7 +3,7 @@
  - Supported: win/mac/linux(xdotool)
 
 
-### how to use
+## how to use
 
 ```
 const sendkeys = require('../index.js')
@@ -14,4 +14,16 @@ sendkeys.send('f5')
 // for win
 sendkeys.send('{f5}')
 ```
+
+## api
+
+### send(keys, metaKeys)
+
+send raw key data with metaKeys(Array).
+
+### activate(title)
+
+activate title's window.
+
+
 
