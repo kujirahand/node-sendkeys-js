@@ -17,14 +17,23 @@ switch (process.platform) {
 function cmd(args) {
   const app = args[0]
   args = args.slice(1)
-  console.log(app, args)
   const {stdout, stderr, status} = spawnSync(app, args)
   if (status !== 0) throw stderr
   return stdout
 }
+function cmd2(args2) {
+  for (let i in args2) {
+    let args = args2[i]
+    const app = args[0]
+    args = args.slice(1)
+    console.log(app, args)
+    const {stderr, status} = spawnSync(app, args)
+    if (status !== 0) throw stderr
+  }
+}
 
 function send(keys, metaKeys) {
-  cmd(config.gen(keys, metaKeys))
+  cmd(config.send(keys, metaKeys))
 }
 function activate(title) {
   cmd(config.activate(title))
@@ -35,8 +44,12 @@ function run(path) {
 function sleep(v) {
   cmd(config.sleep(v))
 }
+function sendKeys(keys) {
+  cmd2(config.sendKeys(keys))
+}
 
 module.exports = {
+  'sendKeys': sendKeys,
   'send': send,
   'activate': activate,
   'run': run,

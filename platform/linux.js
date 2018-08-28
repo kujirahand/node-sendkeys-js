@@ -1,7 +1,12 @@
 // gen command
-module.exports.gen = function (keys, metaKeys) {
+module.exports.send = function (keys, metaKeys) {
   const cmd = ['xdotool', 'key', keys]
   return cmd
+}
+
+module.exports.sendKeys = function (keys, metaKeys) {
+  const cmd = ['xdotool', 'key', keys]
+  return [cmd]
 }
 
 // ative command

@@ -31,9 +31,9 @@ const spkeys = {
   'f12': 'key code 111',
   'fn': 'key code 63'
 }
+const metaChars = {'+': 'shift', '^': 'control', '%': 'alt', '&': 'command'}
 
-// gen command
-module.exports.gen = function (key, metaKeys) {
+function send(key, metaKeys) {
   key = key.toLowerCase()
   let action = `keystroke ${key}`
   if (spkeys[key]) action = spkeys[key]
@@ -44,7 +44,7 @@ module.exports.gen = function (key, metaKeys) {
     for (let i in metaKeys) {
       a.push(metaKeys[i] + ' down')
     }
-    opt = 'using {' + a.join(',') + '}'
+    opt = ' using {' + a.join(',') + '}'
   }
 
   const cmd = ['osascript', '-e']
@@ -52,19 +52,62 @@ module.exports.gen = function (key, metaKeys) {
   return cmd
 }
 
-// ative command
+function sendKeys(keys) {
+  const result = []
+  let str = keys
+  let metaKeys = []
+  while (str.length > 0) {
+    const c = str.substr(0, 1)
+    // 同時押しキー
+    if (metaChars[c]) {
+      metaKeys.push(metaChars[c])
+      str = str.substr(1)
+      continue
+    }
+    // 特殊キーを送る
+    if (c === '{') {
+      const endPos = str.indexOf('}')
+      if (endPos < 0) break
+      let key = str.substr(1, endPos - 1)
+      if (metaChars[key]) {
+        result.push(send('"'+key+'"'))
+      } else {
+        result.push(send(key, metaKeys))
+      }
+      str = str.substr(endPos + 1)
+      metaKeys = []
+      continue
+    }
+    // 一文字送る
+    result.push(send(`"${c}"`, metaKeys))
+    metaKeys = []
+    str = str.substr(1)
+  }
+  return result
+}
+
+// send (raw)
+module.exports.send = send
+module.exports.sendKeys = sendKeys
+
+// ative
 module.exports.activate = function (title) {
   const cmd = ['osascript', '-e']
   cmd.push(`tell application "${title}" to activate`)
   return cmd
 }
+
+// run
 module.exports.run = function (path) {
   return ['open', path]
 }
+
+// sleep
 module.exports.sleep = function (v) {
   return ['sleep', v]
 }
 
+// getActive ... security error
 module.exports.getActive = function () {
   const cmd = ['osascript', '-e']
   cmd.push(`
