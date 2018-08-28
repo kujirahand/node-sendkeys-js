@@ -1,0 +1,12 @@
+{
+  "name": "sendkeys-js",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
