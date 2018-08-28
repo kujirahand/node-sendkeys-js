@@ -10,6 +10,7 @@ switch (process.platform) {
     break
   case 'linux':
     config = require('./platform/linux')
+    break
   default:
     throw new Error('Unknown platform: ' + process.platform)
 }
@@ -28,7 +29,12 @@ function cmd2(args2) {
     args = args.slice(1)
     console.log(app, args)
     const {stderr, status} = spawnSync(app, args)
-    if (status !== 0) throw stderr
+    if (status !== 0) {
+      if (process.platform === 'linux') {
+        console.warn('** Linux needs `xdotool`')
+      }
+      throw stderr
+    }
   }
 }
 

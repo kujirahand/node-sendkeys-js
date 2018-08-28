@@ -24,4 +24,8 @@ if (process.platform == 'win32') {
   sendkeys.activate('Calcurator')
   sendkeys.sendKeys('1{+}2{+}3{enter}')
 }
+if (process.platform == 'linux') {
+  sendkeys.sendKeys('ls{tab}{tab}')
+  // sendkeys.sendKeys('ls{enter}')
+}
 

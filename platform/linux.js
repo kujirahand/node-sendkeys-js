@@ -1,13 +1,109 @@
-// gen command
-module.exports.send = function (keys, metaKeys) {
-  const cmd = ['xdotool', 'key', keys]
+// Linux need xdotool
+
+const metaChars = {'+': 'shift', '^': 'ctrl', '%': 'alt', '&': 'command'}
+const spkeys = {
+  'enter': 'Return',
+  'return': 'Return',
+  'tab': 'Tab',
+  'space': 'Space',
+  'spc': 'Space',
+  '+': 'plus',
+  '-': 'minus',
+  '*': 'asterisk',
+  '/': 'slash',
+  '\\': 'backslash',
+  ' ': 'Space',
+  '"': 'quotedbl',
+  '$': 'dollar',
+  '%': 'percent',
+  '&': 'ampersand',
+  '`': 'quoteright',
+  '(': 'parenleft',
+  ')': 'parenright',
+  '[': 'bracketleft',
+  ']': 'bracketright',
+  ',': 'comma',
+  '_': 'underscore',
+  '\'': 'quoteleft',
+  ':': 'colon',
+  ';': 'semicolon',
+  '<': 'less',
+  '>': 'greater',
+  '=': 'equal',
+  '?': 'question',
+  '@': 'at',
+  '{': 'braceleft',
+  '}': 'braceright',
+  '~': 'asciitilde',
+  'f1': 'F1',
+  'f2': 'F2',
+  'f3': 'F3',
+  'f4': 'F4',
+  'f5': 'F5',
+  'f6': 'F6',
+  'f7': 'F7',
+  'f8': 'F8',
+  'f9': 'F9',
+  'f10': 'F10',
+  'bs': 'BackSpace',
+  'backspace': 'BackSpace'
+}
+
+function send(key, metaKeys) {
+  key = key.toLowerCase()
+  if (spkeys[key]) key = spkeys[key]
+  // same time press
+  let opt = ''
+  if (metaKeys !== undefined && metaKeys.length > 0) {
+    const a = []
+    for (let i in metaKeys) {
+      a.push(metaKeys[i] + ' down')
+    }
+    opt = a.join('+')
+  }
+
+  const cmd = ['xdotool', 'key', opt + key]
   return cmd
 }
 
-module.exports.sendKeys = function (keys, metaKeys) {
-  const cmd = ['xdotool', 'key', keys]
-  return [cmd]
+function sendKeys(keys) {
+  const result = []
+  let str = keys
+  let metaKeys = []
+  while (str.length > 0) {
+    const c = str.substr(0, 1)
+    // 同時押しキー
+    if (metaChars[c]) {
+      metaKeys.push(metaChars[c])
+      str = str.substr(1)
+      continue
+    }
+    // 特殊キーを送る
+    if (c === '{') {
+      const endPos = str.indexOf('}')
+      if (endPos < 0) break
+      let key = str.substr(1, endPos - 1)
+      if (metaChars[key]) {
+        result.push(send(key))
+      } else {
+        result.push(send(key, metaKeys))
+      }
+      str = str.substr(endPos + 1)
+      metaKeys = []
+      continue
+    }
+    // 一文字送る
+    result.push(send(c, metaKeys))
+    metaKeys = []
+    str = str.substr(1)
+  }
+  return result
 }
+
+// send (raw)
+module.exports.send = send
+module.exports.sendKeys = sendKeys
+
 
 // ative command
 module.exports.activate= function (title) {
