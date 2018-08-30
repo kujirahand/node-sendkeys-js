@@ -45,6 +45,16 @@ const spkeys = {
   'f8': 'F8',
   'f9': 'F9',
   'f10': 'F10',
+  'f11': 'F11',
+  'f12': 'F12',
+  'f13': 'F13',
+  'f14': 'F14',
+  'f15': 'F15',
+  'f16': 'F16',
+  'f17': 'F17',
+  'f18': 'F18',
+  'f19': 'F19',
+  'f20': 'F20',
   'bs': 'BackSpace',
   'backspace': 'BackSpace'
 }
@@ -115,4 +125,3 @@ module.exports.getActive = function () {
   const cmd = ['xdotool', 'wgetactivewindow']
   return cmd
 }
-

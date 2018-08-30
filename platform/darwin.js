@@ -7,8 +7,11 @@ const spkeys = {
   'enter': 'keystroke Return',
   'tab': 'keystroke Tab',
   'home': 'keystroke Home',
+  'end': 'key code 119',
+  'pageup': 'key code 116',
+  'pagedwon': 'key code 121',
   'space': 'keystroke Space',
-  'spc': 'key code 49',
+  'spc': 'keystroke Space',
   'delete': 'key code 51',
   'bs': 'key code 51',
   'esc': 'key code 53',
@@ -29,7 +32,22 @@ const spkeys = {
   'f10': 'key code 109',
   'f11': 'key code 103',
   'f12': 'key code 111',
-  'fn': 'key code 63'
+  'f13': 'key code 105',
+  'f14': 'key code 107',
+  'f15': 'key code 113',
+  'f16': 'key code 106',
+  'f17': 'key code 64',
+  'f18': 'key code 79',
+  'f19': 'key code 80',
+  'f20': 'key code 90',
+  'fn': 'key code 63',
+  '*': 'key code 67',
+  '/': 'key code 75',
+  '+': 'key code 69',
+  '-': 'key code 78',
+  '=': 'key code 81',
+  '.': 'key code 65',
+  'clear': 'key code 71'
 }
 const metaChars = {'+': 'shift', '^': 'control', '%': 'alt', '&': 'command'}
 
@@ -126,4 +144,3 @@ return {windowTitle, frontAppName}
 `)
   return cmd
 }
-
