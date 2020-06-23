@@ -6,9 +6,9 @@
 ## how to use
 
 ```
-const sendkeys = require('../index.js')
+const sendkeys = require('sendkeys-js')
 
-// for mac
+// for mac or linux
 sendkeys.send('f5')
 
 // for win
