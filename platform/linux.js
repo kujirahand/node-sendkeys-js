@@ -56,7 +56,11 @@ const spkeys = {
   'f19': 'F19',
   'f20': 'F20',
   'bs': 'BackSpace',
-  'backspace': 'BackSpace'
+  'backspace': 'BackSpace',
+  'up': 'Up',
+  'right': 'Right',
+  'down': 'Down',
+  'left': 'Left'
 }
 
 function send(key, metaKeys) {

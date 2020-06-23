@@ -30,4 +30,5 @@ if (process.platform == 'win32') {
 if (process.platform == 'linux') {
   // sendkeys.sendKeys('ls{tab}{tab}')
   sendkeys.sendKeys('ls{enter}')
+  sendkeys.sendKeys('Hello{left}{left}')
 }
