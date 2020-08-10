@@ -62,6 +62,13 @@ const spkeys = {
   'down': 'Down',
   'left': 'Left'
 }
+const metaKeyMapping = {
+  'ctrl': 'Control_L',
+  'alt': 'Alt_L',
+  'super': 'Super_L',
+  'meta': 'Meta_L',
+  'shift': 'Shift_L'
+}
 
 function send(key, metaKeys) {
   key = key.toLowerCase()
@@ -71,12 +78,13 @@ function send(key, metaKeys) {
   if (metaKeys !== undefined && metaKeys.length > 0) {
     const a = []
     for (let i in metaKeys) {
-      a.push(metaKeys[i] + ' down')
+      const metaVal = metaKeyMapping[metaKeys[i]] || metaKeys[i]
+      a.push(metaVal)
     }
     opt = a.join('+')
   }
 
-  const cmd = ['xdotool', 'key', opt + key]
+  const cmd = ['xdotool', 'key', opt + '+' + key]
   return cmd
 }
 
